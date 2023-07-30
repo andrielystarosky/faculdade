@@ -1,0 +1,59 @@
+unit unRodada;
+
+interface
+
+uses unBaralho, SysUtils;
+
+Type TConfigRodada = record
+      PontJog1 :integer; //pc
+      PontJog2 :integer; //user
+      PontRodada :integer;
+      CrtJog :array[1..2] of TLista; //1 :pc, 2:user
+end;
+
+Type TRodada = class
+      procedure IniciaRodada(var Lis :TLista; var Fil :TFila; var Carta :TCarta; var CfgRod :TConfigRodada);
+end;
+
+var ConfigR :TConfigRodada;
+    Rodada  :TRodada;
+    iIdx    :integer;
+implementation
+
+{ TRodada }
+
+procedure TRodada.IniciaRodada(var Lis: TLista; var Fil: TFila; var Carta: TCarta; var CfgRod: TConfigRodada);
+begin
+  TBaralho.Create;
+  Baralho.InicializaBaralho(Lista,Carta);
+  For iIdx:= 1 to 40 do
+  begin
+  With Baralho do
+    WriteLn(IntToStr(Lista.aLista[iIdx].iNum)+'-'+IntToStr(Lista.aLista[iIdx].iNaipe)+'-'+IntToStr(Lista.aLista[iIdx].iPeso));
+  end;
+  ReadLn;
+
+  WriteLn('Emabaralhar');
+  Baralho.Embaralhar(Lista,Fila);
+  For iIdx:= 1 to 40 do
+  begin
+  With Baralho do
+    WriteLn(IntToStr(Lista.aLista[iIdx].iNum)+'-'+IntToStr(Lista.aLista[iIdx].iNaipe)+'-'+IntToStr(Lista.aLista[iIdx].iPeso));
+  end;
+  ReadLn;
+
+  WriteLn('Corte');
+  Baralho.CortaBaralho(Lista,Fila);
+
+  For iIdx:= 1 to Fila.iTamPc do
+  begin
+  With Baralho do
+    WriteLn(IntToStr(Fila.aFila[iIdx].iNum)+'-'+IntToStr(Fila.aFila[iIdx].iNaipe)+'-'+IntToStr(Fila.aFila[iIdx].iPeso));
+  end;
+  ReadLn;
+
+  If TBaralho <> Nil then
+    FreeAndNil(Baralho);
+end;
+
+end.

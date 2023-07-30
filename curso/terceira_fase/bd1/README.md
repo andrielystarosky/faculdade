@@ -1,5 +1,5 @@
 # Banco de Dados I
-> Prof Marco Aurélio Butzke
+> [Prof Marco Aurélio Butzke](http://lattes.cnpq.br/6512700333044536)
 
 - [Plano de Ensino](./docs/plano_de_ensino.pdf)
 

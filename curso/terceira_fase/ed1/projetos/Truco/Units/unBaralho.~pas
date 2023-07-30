@@ -1,0 +1,153 @@
+unit unBaralho;
+
+interface
+
+uses unComunicacao;
+
+Type TCarta = record
+      iNum   :integer;
+      iNaipe :integer;
+      iPeso  :integer;
+end;
+
+Type TLista = record
+      aLista   :array[1..40] of TCarta;
+      iNum     :integer;
+      iTamPc   :integer;
+      iPosAcao :integer;
+      iTam     :integer;
+end;
+
+Type TFila = record
+      aFila    :array[1..40] of TCarta;
+      iNum     :integer;
+      iTamPc   :integer;
+      iPosAcao :integer;
+      iTam     :integer;
+end;
+
+Type TBaralho = class
+  public
+    Function  DefinePesoCarta(var iNum :integer) :integer;
+    Function  DefineNumero(var iNum :integer) :integer;
+    Procedure InsertLista(var Lis :TLista; Carta :TCarta);
+    Procedure RemoveLista(var Lis :TLista);
+    Procedure InsertFila(var Fil :TFila; Carta :TCarta);
+    Procedure RemoveFila(var Fil :TFila);
+    Procedure InicializaBaralho(var Lista :TLista);
+    Procedure CortaBaralho(Lis :TLista; var Fil :TFila);
+    Procedure Embaralhar(var Lis :TLista; var Fil :TFila);
+end;
+
+
+
+var Lista   :TLista;
+    Fila    :TFila;
+    Carta   :TCarta;
+    Baralho :TBaralho;
+
+    iIdx    :integer;
+
+implementation
+ //
+{ TBaralho }
+
+procedure TBaralho.CortaBaralho(Lis: TLista; var Fil: TFila);
+var iIdx :integer;
+begin
+  //Fil.iPosAcao:= Mensagem.PosCorte;
+  For iIdx := Fil.iPosAcao to 40 do
+  begin
+    Lis.iPosAcao:=Fil.iPosAcao;
+    Baralho.InsertFila(Fil,Lis.aLista[Lis.iPosAcao]);
+    Baralho.RemoveLista(Lis);
+  end;
+  Fil.iPosAcao:= Fil.iTamPc+1;
+  For iIdx:= 1 to lis.iTamPc do
+  begin
+    Lis.iPosAcao:=Fil.iPosAcao;
+    Baralho.InsertFila(Fil,Lis.aLista[Lis.iPosAcao]);
+    Baralho.RemoveLista(Lis);
+  end;
+end;
+
+function TBaralho.DefineNumero(var iNum: integer): integer;
+begin
+  Case iNum of
+    8 : DefineNumero:=10;
+    9 : DefineNumero:=11;
+    10: DefineNumero:=12;
+    Else DefineNumero:= iNum;
+  end;
+end;
+
+function TBaralho.DefinePesoCarta(var iNum: integer): integer;
+begin
+  Case iNum of
+    3:   DefinePesoCarta:=15;
+    2:   DefinePesoCarta:=14;
+    1:   DefinePesoCarta:=13;
+    Else DefinePesoCarta:=iNum;
+  end;
+end;
+
+procedure TBaralho.InicializaBaralho(var Lista: TLista);
+var iIdxCarta, iIdxNaipe :Integer;
+    Carta :TCarta;
+begin
+  Lista.iPosAcao:=0;
+  For iIdxCarta:= 1 to 10 do
+  begin
+    Carta.iNum:= DefineNumero(iIdxCarta);
+    Carta.iPeso:=DefinePesoCarta(Carta.iNum);
+    For iIdxNaipe:= 1 to 4 do
+    begin
+      inc(Lista.iPosAcao);
+      Carta.iNaipe:= iIdxNaipe;
+      InsertLista(Lista,Carta);
+    end;
+  end;
+
+end;
+
+procedure TBaralho.InsertFila(var Fil: TFila; Carta: TCarta);
+begin
+  inc(Fil.iTamPc);
+  Fil.aFila[Fil.iTamPc]:= Carta;
+end;
+
+procedure TBaralho.RemoveFila(var Fil: TFila);
+var iIdx :integer;
+begin
+  dec(Fil.iTamPc);
+  For iIdx:= 1 to Fil.iTamPc do
+    Fil.aFila[iIdx]:= Fil.aFila[iIdx+1];
+end;
+
+procedure TBaralho.InsertLista(var Lis: TLista; Carta: TCarta);
+begin
+  Inc(Lis.iTamPc);
+  Lis.aLista[Lis.iPosAcao]:= Carta;
+end;
+
+procedure TBaralho.RemoveLista(var Lis: TLista);
+var iIdx:integer;
+begin
+  Dec(Lis.iTamPc);
+  For iIdx:= Lis.iPosAcao to Lis.iTamPc do
+    Lis.aLista[iIdx]:= Lis.aLista[iIdx+1];
+end;
+
+procedure TBaralho.Embaralhar(var Lis: TLista; var Fil: TFila);
+var iIdx, iAux :integer;
+begin
+  iAux:= Random(5)+2;
+  For iIdx:= 1 to iAux do
+  begin
+    CortaBaralho(Lis,Fil);
+    //
+  end;
+end;
+
+end.
+

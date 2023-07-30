@@ -1,0 +1,6 @@
+
+--Remover
+
+--Inserir duplicado
+
+--Dupla encadeada

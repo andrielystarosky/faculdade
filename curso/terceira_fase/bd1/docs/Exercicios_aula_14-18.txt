@@ -1,0 +1,174 @@
+Lista de exercício – Unidade IV – Select – base globalstore
+1.	Listar os nomes, bem como a descrição do segmento, o nome da cidade, o estado, o nome do país, do mercado e da região de cada consumidor cadastrados.
+
+		select c.nome,
+	       s.descricao as segmento,
+		   cid.nome as cidade,
+		   cid.estado,
+		   pai.nome as pais,
+		   m.descricao as mercado,
+		   r.descricao as regiao
+	  from public.consumidor c
+	  join public.segmento s
+	    on s.seg_codigo = c.seg_codigo
+	  join public.cidade cid
+	    on cid.cid_codigo = c.cid_codigo
+	  join public.pais pai
+	    on pai.pai_codigo = cid.pai_codigo 
+	  join public.mercado m
+	    on m.mer_codigo = pai.mer_codigo
+	  join public.regiao r
+	    on r.reg_codigo = pai.reg_codigo
+
+
+
+2.	Listar os nomes, bem como a descrição do segmento, o nome da cidade, o estado, o nome do pais, do mercado e da região de cada consumidor que comprou no ano de 2013.
+
+		select c.nome,
+	       s.descricao as segmento,
+		   cid.nome as cidade,
+		   cid.estado,
+		   pai.nome as pais,
+		   m.descricao as mercado,
+		   r.descricao as regiao
+	  from public.consumidor c
+	  join public.segmento s
+	    on s.seg_codigo = c.seg_codigo
+	  join public.cidade cid
+	    on cid.cid_codigo = c.cid_codigo
+	  join public.pais pai
+	    on pai.pai_codigo = cid.pai_codigo 
+	  join public.mercado m
+	    on m.mer_codigo = pai.mer_codigo
+	  join public.regiao r
+	    on r.reg_codigo = pai.reg_codigo
+      join public.pedido ped
+	    on ped.con_codigo = c.con_codigo
+	 where extract(year from ped.data_pedido)=2013
+
+
+3.	Listar os nomes, bem como a descrição do segmento, o nome da cidade, o estado, o nome do pais, do mercado e da região de cada consumidor que comprou no ano de 2013 algum produto da 
+  categoria Forniture.
+  
+		select c.nome,
+	       s.descricao as segmento,
+		   cid.nome as cidade,
+		   cid.estado,
+		   pai.nome as pais,
+		   m.descricao as mercado,
+		   r.descricao as regiao
+	  from public.consumidor c
+	  join public.segmento s
+	    on s.seg_codigo = c.seg_codigo
+	  join public.cidade cid
+	    on cid.cid_codigo = c.cid_codigo
+	  join public.pais pai
+	    on pai.pai_codigo = cid.pai_codigo 
+	  join public.mercado m
+	    on m.mer_codigo = pai.mer_codigo
+	  join public.regiao r
+	    on r.reg_codigo = pai.reg_codigo
+      join public.pedido ped
+	    on ped.con_codigo = c.con_codigo
+	  join (select pro.pro_codigo as produto, 
+			       cat.descricao as categoria,
+			       i.ped_codigo 
+		      from item i
+			  join produto pro
+			    on pro.pro_codigo = i.pro_codigo
+			  join subcategoria scat 
+			    on scat.sub_codigo = pro.sub_codigo
+			  join categoria cat
+			    on cat.cat_codigo = scat.cat_codigo
+		   ) cat
+	    on cat.ped_codigo = ped.ped_codigo
+	  join public.produto pro
+	    on pro.pro_codigo = cat.produto
+	 where extract(year from ped.data_pedido)=2013
+	   and cat.categoria ilike '%Forniture%'
+
+
+4.	Listar os pedidos dos clientes do mercado West no ano de 2012.
+    select c.nome,
+	       ped.ped_codigo as pedido
+	  from public.consumidor c
+	  join public.segmento s
+	    on s.seg_codigo = c.seg_codigo
+	  join public.cidade cid
+	    on cid.cid_codigo = c.cid_codigo
+	  join public.pais pai
+	    on pai.pai_codigo = cid.pai_codigo 
+	  join public.mercado m
+	    on m.mer_codigo = pai.mer_codigo
+	  join public.regiao r
+	    on r.reg_codigo = pai.reg_codigo
+      join public.pedido ped
+	    on ped.con_codigo = c.con_codigo
+	 where extract(year from ped.data_pedido)=2012
+	   and m.descricao ilike '%West%' 
+	   
+5.	Listar os pedidos da categoria Technology no ano de 2014 no pais China.
+
+    select c.nome,
+	       s.descricao as segmento,
+		   cid.nome as cidade,
+		   cid.estado,
+		   pai.nome as pais,
+		   m.descricao as mercado,
+		   r.descricao as regiao
+	  from public.consumidor c
+	  join public.segmento s
+	    on s.seg_codigo = c.seg_codigo
+	  join public.cidade cid
+	    on cid.cid_codigo = c.cid_codigo
+	  join public.pais pai
+	    on pai.pai_codigo = cid.pai_codigo 
+	  join public.mercado m
+	    on m.mer_codigo = pai.mer_codigo
+	  join public.regiao r
+	    on r.reg_codigo = pai.reg_codigo
+      join public.pedido ped
+	    on ped.con_codigo = c.con_codigo
+	  join (select pro.pro_codigo as produto, 
+			       cat.descricao as categoria,
+			       i.ped_codigo 
+		      from item i
+			  join produto pro
+			    on pro.pro_codigo = i.pro_codigo
+			  join subcategoria scat 
+			    on scat.sub_codigo = pro.sub_codigo
+			  join categoria cat
+			    on cat.cat_codigo = scat.cat_codigo
+		   ) cat
+	    on cat.ped_codigo = ped.ped_codigo
+	  join public.produto pro
+	    on pro.pro_codigo = cat.produto
+	 where extract(year from ped.data_pedido)=2014
+	   and cat.categoria ilike '%Technology%'
+	   and pai.pai_codigo=9
+	   
+6.	Listar os 10 países com maior quantidade de vendas.
+
+   select pais_nome
+     from (select pai.nome as pais_nome,
+			 from pedido ped 
+			 join consumidor
+			using (con_codigo)
+			 join cidade cid
+			using (cid_codigo)
+			 join pais pai
+			using (pai_codigo)
+		 group by 1 
+		 order by 2 desc
+			limit 10) org
+		
+
+7.	Listar as 10 cidades com maior lucro nas vendas no ano de 2014.
+8.	Listar o valor médio dos pedidos por região.
+9.	Listar o valor médio dos pedidos por categoria quando o valor da entrega for maior que 20.
+10.	Listar a soma das vendas por mês nos anos de 2011 e 2012.
+11.	Listar a soma das vendas por subcategorias, com exceção do ano de 2014, nos itens que apresentaram lucro.
+12.	Listar a soma dos valores das entregas dos países (5 maiores), apenas quando o valor da entrega for maior que 20.
+13.	Listar a soma das vendas dos países no ano de 2014 cujo a soma das vendas for maior que 10000.
+14.	Listar a soma das vendas dos países no ano de 2014 cujo a soma das vendas for maior que 10000, considerando os valores de entrega maiores que 20.
+15.	Listar a região e a categoria com os cinco maiores lucros nas vendas no ano de 2013.

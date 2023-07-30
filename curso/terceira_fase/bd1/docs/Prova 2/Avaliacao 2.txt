@@ -1,0 +1,160 @@
+> Andriely, Gabriela e Aline.
+
+# Avaliação 2 - Banco de Dados
+
+
+1. 
+create table public.pessoa (
+	cpf char(11) not null,
+	nome varchar(100) not null,
+	identidade varchar(10) not null,
+	endereco varchar(100) not null,
+	cep char(8) not null,
+	cidade varchar(50) not null,
+	estado char(2) not null
+);
+		
+2. 
+create table  public.notafiscal (
+	numero integer not null,
+	data date not null,
+	parcela integer not null,
+	vencimento date not null,
+	valor decimal(17,2) not null,
+	formapagto varchar(20) not null,
+	valorpago decimal(17,2) not null
+);
+		
+3. 
+alter table public.pessoa
+  add constraint pk_pessoa primary key (cpf);
+  
+alter table public.notafiscal
+  add column pessoa_cpf char(11) not null;
+  
+alter table public.notafiscal
+  add constraint pk_notafiscal primary key (numero);
+  
+alter table public.notafiscal
+  add constraint fk_notafiscal_pessoa foreign key (pessoa_cpf)
+    references public.pessoa (cpf);
+		
+4. 
+alter table public.pessoa
+     rename cpf to pes_cpf;
+ 
+   alter table public.pessoa
+        alter column nome type character varying(40);
+  
+alter table public.pessoa
+        add column orgao varchar(10) not null;
+  
+alter table public.pessoa
+  add column sexo char(1) not null;
+  
+alter table public.pessoa
+  add column nascimento timestamp not null;
+  
+alter table public.pessoa
+  drop column endereco;
+  
+alter table public.pessoa
+  drop column cidade;
+
+alter table public.pessoa
+  drop column estado;
+		
+create table public.cep (
+  	cep char(8) not null,
+	estado char(2) not null,
+	cidade varchar(30) not null,
+	endereco varchar(100) not null,
+    constraint pk_cep primary key(cep)
+    );
+	
+alter table public.pessoa 
+  add constraint fk_pessoa_cep foreign key (cep)
+    references public.cep (cep);
+	
+alter table public.pessoa
+  add column numero varchar(10) not null;
+
+alter table public.pessoa
+  add column complemento varchar(50);
+	  
+	
+drop table public.notafiscal;
+  
+create table public.formapagamento(
+  fpg_codigo integer not null,
+  formapagto varchar(10) not null,
+  constraint pk_formapagamento primary key(fpg_codigo) 
+ );
+ 
+create table public.notafiscal(
+  	nf_numero integer not null,
+	data timestamp not null,
+	pes_cpf char(11) not null,
+	constraint pk_notafiscal primary key(nf_numero),
+	constraint fk_notafiscal_pessoa foreign key (pes_cpf)
+	  references public.pessoa (pes_cpf)
+  );
+  
+create table public.parcela (
+  	nf_numero integer not null,
+	par_numero integer not null,
+	vencimento timestamp not null,
+	valor decimal(10,2) not null,
+	pagamento timestamp,
+	valorpago decimal(10,2) not null default 0.0,
+	fpg_codigo integer not null,
+	constraint pk_parcela primary key (nf_numero, par_numero),
+	constraint fk_parcela_notafiscal foreign key (nf_numero)
+	  references notafiscal (nf_numero),
+	constraint fk_parcela_formapagto foreign key (fpg_codigo)
+	  references formapagamento (fpg_codigo)
+ );
+ 
+5. 
+   
+ insert into public.cep values('88430000','SC','Petrolândia','R. Tiradentes,315');
+ insert into public.cep values('89184000','SC','Presidente Nereu','R. Vidal Ramos,269');
+ 
+ insert into public.pessoa values('07463733920','Andriely Starosky','5872652','SSP', 'F', '2004/01/07 09:00:00', '88430000', '99791-8630', ' ');
+ insert into public.pessoa values('10510876943','Gabriela da Silva','4582436','SSP', 'F', '2002/05/02 18:00:00', '89184000', '98821-7822', ' ');
+ insert into public.pessoa values('09913916917','Aline Hoffmann','8796845','SSP', 'F', '2004/01/03 18:30:00', '88430000', '98826-0930', ' ');
+ 
+insert into public.formapagamento values(1,'Cartão'); 
+insert into public.formapagamento values(2,'Pix'); 
+
+
+insert into public.notafiscal values(1,'2023/05/10 19:52:00','09913916917'); 
+insert into public.notafiscal values(2,'2023/05/10 19:52:00','10510876943'); 
+insert into public.notafiscal values(3,'2023/05/10 19:52:00','07463733920'); 
+insert into public.notafiscal values(4,'2023/05/10 19:52:00','09913916917'); 
+insert into public.notafiscal values(5,'2023/05/10 19:52:00','10510876943'); 
+
+
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(1,1,'2023/10/30','70.00','20.00',1);   
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(2,2,'2023/10/30','70.00','20.00',1); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(3,3,'2023/10/30','70.00','20.00',2); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(4,4,'2023/10/30','70.00','20.00',1); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(5,5,'2023/10/30','70.00','20.00',2); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(2,6,'2023/10/30','70.00','20.00',1); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(3,7,'2023/10/30','70.00','20.00',2); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(4,8,'2023/10/30','70.00','20.00',1); 
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(5,9,'2023/10/30','70.00','20.00',2);
+insert into public.parcela(nf_numero,par_numero,vencimento,valor,valorpago,fpg_codigo)
+  values(1,10,'2023/10/30','70.00','20.00',1);
+  
+
+

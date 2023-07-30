@@ -1,7 +1,8 @@
 # Banco de Dados I
 > [Prof Marco Aurélio Butzke](http://lattes.cnpq.br/6512700333044536)
 
-- [Plano de Ensino](./docs/plano_de_ensino.pdf)
+## Ementa
+> [Plano de Ensino](./docs/plano_de_ensino.pdf)
 
 - Sistema Gerenciador de Banco de Dados: Histórico e Características. 
 - Modelagem de Dados: Modelo Conceitual, Lógico e Físico. 

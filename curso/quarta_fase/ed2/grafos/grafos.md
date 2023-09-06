@@ -17,7 +17,7 @@ um trabalho realizado por Euler. O problema baseava-se em um desenho cujas linha
 - Seja `G(V,E)` um grafo, onde `V` é um conjunto finito e não vazio e `E` um conjunto de pares ordenados `(E1,E2)`, aonde `E1` e `E2` pertencem ao conjunto `V`. 
   -*
 
-- Os **elementos** do conjunto `V` de um grafo são denominados *vértices*, *pontos* ou *nós*. Os pares ordenados do conjunto `E` são demominados *arestas*, *linhas* ou *arcos* do grafo. A **ordem** de um grafo é determinada pela quantidade de nós que o formam.
+- Os **elementos** do conjunto `V` de um grafo são denominados *vértices*, *pontos* ou *nós*. Os pares ordenados do conjunto `E` são demominados *arestas*, *linhas* ou *arcos* do grafo. A **ordem** de um grafo é determinada pela quantidade de nós que o formam. 74444444444444444444444444444444444444444444444444 
 
 - Duas arestas que incidem sobre o mesmo vértice são ditas *adjacentes*. Se existem duas arestas ligando os mesmos vértices, elas são chamadas paralelas. Se o grafo possui laços e/ou arestas paralelas, ele é chamado multigrafo, caso contrário é um grafo simples. 
   
@@ -35,6 +35,6 @@ Full-duplex: nos dois sentidos simultaneamente.
 
 - Um grafo `G` é um **subgrafo** de um grafo `H` se o conjunto de vértices e o conjunto de arestas do grafo `G` forem subconjuntos do grafo `H`. 
 
-- Define-se o garu de um vértice pelo número de arestas incidentes a ele. Um vértice que não possui arestas incidentes (grau 0) é chamado **isolado**. Um vértice que possui uma única aresta incidente (grau 1) é chamado **pendente**. 
+- Define-se o grau de um vértice pelo número de arestas incidentes a ele. Um vértice que não possui arestas incidentes (grau 0) é chamado **isolado**. Um vértice que possui uma única aresta incidente (grau 1) é chamado **pendente**. 
 
 - Um grafo é chamado `rotulado` se os seus vértices e/ou arestas possuírem rótulos. Caso contrário são chamados `não rotulados`.  

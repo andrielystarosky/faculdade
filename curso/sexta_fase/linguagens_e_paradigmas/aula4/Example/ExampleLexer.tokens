@@ -1,0 +1,7 @@
+NUMBER=1
+ID=2
+PLUS=3
+MINUS=4
+WS=5
+'+'=3
+'-'=4

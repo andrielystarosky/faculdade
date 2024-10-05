@@ -1,0 +1,161 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+    padding-top: 80px; /* Espaço para o menu fixo */
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.menu-icon {
+    display: none;
+    /* font-size: 30px; */
+    cursor: pointer;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #FF6347;
+}
+
+section {
+    margin: 40px 0;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center; /* Centraliza os títulos */
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilos para organizar o layout das receitas abaixo do título */
+#receitas, #categorias, #destaques {
+    display: flex;
+    flex-direction: column; /* As receitas ficarão empilhadas sob o título */
+    align-items: center; /* Centraliza os itens abaixo do título */
+    gap: 20px; /* Espaçamento entre os elementos */
+}
+
+.receita, .categoria, article {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    width: 100%; /* As receitas ocupam 100% da largura disponível */
+    max-width: 500px; /* Define uma largura máxima para os cartões */
+}
+
+.receita img, .categoria img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.receita p, .categoria p, article p {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #555;
+}
+
+article h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #FF6347;
+}
+
+/* Animações sutis ao passar o mouse */
+.receita:hover, .categoria:hover, article:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Responsividade aprimorada */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background-color: #333;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    .receita, .categoria, article {
+        width: 100%;
+        max-width: 100%; /* Em dispositivos móveis, os cartões ocupam toda a largura */
+    }
+}

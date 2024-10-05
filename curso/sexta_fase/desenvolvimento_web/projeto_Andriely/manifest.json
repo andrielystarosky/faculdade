@@ -1,0 +1,26 @@
+{
+    "name": "Culinária Deliciosa",
+    "short_name": "Culinária",
+    "description": "Um site responsivo sobre Culinária.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4B0082",
+    "icons": [
+      {
+        "src": "img/icone.webp",
+        "sizes": "256x256",
+        "type": "image/webp"
+      },
+      {
+        "src": "img/bolodechocolate.webp",
+        "sizes": "1272x764",
+        "type": "image/webp"
+      },
+      {
+        "src": "img/lasanha.webp",
+        "sizes": "1400x675",
+        "type": "image/webp"
+      }
+    ]
+  }

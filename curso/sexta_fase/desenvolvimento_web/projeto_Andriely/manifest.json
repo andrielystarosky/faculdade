@@ -2,7 +2,7 @@
     "name": "Culinária Deliciosa",
     "short_name": "Culinária",
     "description": "Um site responsivo sobre Culinária.",
-    "start_url": "/",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#4B0082",

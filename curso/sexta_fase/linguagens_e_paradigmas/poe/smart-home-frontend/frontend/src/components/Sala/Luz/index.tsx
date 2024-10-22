@@ -37,6 +37,8 @@ export default function Sala() {
                     {estadoLuz.luzOn ? 'Desligar Luz' : 'Ligar Luz'}
                 </button>
                 <img src='luz.png' className={`status ${estadoLuz.luzOn ? 'on' : 'off'}`} />
+                <img src='lampada.png' className={`status ${estadoLuz.luzOn ? 'off' : 'on'}`} />
+
             </div>
     )
 }

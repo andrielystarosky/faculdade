@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import './style.css';
+import { FaLightbulb, FaRegLightbulb } from 'react-icons/fa';
 
-export default function Sala() {
+export default function Luz() {
     const socket = io('http://localhost:4000');
 
     interface EstadoLuz {
@@ -15,7 +16,7 @@ export default function Sala() {
 
     //conectar ao backend e receber o estado inicial
     useEffect(() => {
-          //atualiza estado quando houver mudança
+        //atualiza estado quando houver mudança
         socket.on('acenderLuzSala', (novoEstado: EstadoLuz) => {
             setEstadoLuz(novoEstado);
         });
@@ -31,14 +32,16 @@ export default function Sala() {
     }
 
     return (
-            <div className='luz'>
-                <p>Sala de Estar - Luz</p>
-                <button onClick={acenderLuz}>
-                    {estadoLuz.luzOn ? 'Desligar Luz' : 'Ligar Luz'}
-                </button>
-                <img src='luz.png' className={`status ${estadoLuz.luzOn ? 'on' : 'off'}`} />
-                <img src='lampada.png' className={`status ${estadoLuz.luzOn ? 'off' : 'on'}`} />
-
-            </div>
+        <div className='luz'>
+            <p>Luz</p>
+            {estadoLuz.luzOn ? (
+                <FaLightbulb size={60} color="yellow" />
+            ) : (
+                <FaRegLightbulb size={60} color="gray" />
+            )}<br />
+            <button onClick={acenderLuz}>
+                {estadoLuz.luzOn ? 'Desligar Luz' : 'Ligar Luz'}
+            </button>
+        </div>
     )
 }

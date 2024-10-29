@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import './style.css';
 import Luz from "./Luz";
+import Televisao from "./Televisao";
+import ArCondicionado from "./ArCondicionado";
 
 export default function Sala() {
     const socket = io('http://localhost:4000');
@@ -70,23 +72,12 @@ export default function Sala() {
 
     return (
         <div className='sala'>
+            <div>
+                <h2>Sala</h2>
+            </div>
             <Luz/>
-            <div className='tv'>
-                <p>Sala de Estar - TV</p>
-                <button onClick={ligarTv}>
-                    {estadoTv.tvOn ? 'Desligar TV' : 'Ligar TV'}
-                </button>
-                <img src='tv.png' className={`status ${estadoTv.tvOn ? 'on' : 'off'}`} />
-            </div>
-            <div className='ar'>
-                <p>Sala de Estar - AR Condicionado</p>
-                <button onClick={ligarAr}>
-                    {estadoAr.arOn ? 'Desligar Ar' : 'Ligar Ar'}
-                </button>
-                <label>Temperatura:</label>
-                <input type="number" disabled={!estadoAr.arOn} />
-                <img src='ar.png' className={`status ${estadoAr.arOn ? 'on' : 'off'}`} />
-            </div>
+            <Televisao/>
+            <ArCondicionado/>
         </div>
     )
 }

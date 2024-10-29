@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import './style.css';
 
-export default function Cozinha() {
+export default function Quarto() {
     const socket = io('http://localhost:4000');
 
     interface EstadoInicial {
@@ -27,26 +27,26 @@ export default function Cozinha() {
             setEstadoInicial(estadoInicial);
         });
         //atualiza estado quando houver mudança
-        socket.on('acenderLuzCozinha', (novoEstado: EstadoLuz) => {
+        socket.on('acenderLuzQuarto', (novoEstado: EstadoLuz) => {
             setEstadoLuz(novoEstado);
         });
 
         return () => {
-            socket.off('estadoInicialCozinha');
-            socket.off('acenderLuzCozinha');
+            socket.off('estadoInicialQuarto');
+            socket.off('acenderLuzQuarto');
         }
     }, []);
 
     //funcao para alterar o estado dos dispositivo
     const acenderLuz = () => {
-        socket.emit('acenderLuzCozinha');
+        socket.emit('acenderLuzQuarto');
     }
 
 
     return (
-        <div className='cozinha'>
+        <div className='quarto'>
             <div>
-                <h2>Cozinha</h2>
+                <h2>Quarto</h2>
             </div>
             <div className='luz'>
                 <p>Luz</p>

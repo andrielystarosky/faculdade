@@ -1,0 +1,10 @@
+Membros: Andriely e Wilson;
+
+Como instalar: 
+1. abrir a pasta smart-home-backend;
+2. executar npm install para instalar as dependências;
+3. abrir a pasta smart-home-frontend;
+4. abrir a pasta frontend;
+5. executar npm install para instalar as dependências;
+6. Executar npm start nas duas pastas onde foi executado o npm install;
+7. Entrar no servidor gerado para teste;

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import './style.css';
 
+const socket = io('http://localhost:4000');
 export default function Cozinha() {
-    const socket = io('http://localhost:4000');
 
     interface EstadoLuz {
         luzOn: boolean,

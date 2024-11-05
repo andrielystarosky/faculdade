@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import './style.css';
-import { FaLightbulb, FaRegLightbulb } from 'react-icons/fa';
 
 const socket = io('http://localhost:4000');
 export default function Sala() {
@@ -16,7 +15,6 @@ export default function Sala() {
 
     //conectar ao backend e receber o estado inicial
     useEffect(() => {
-        //atualiza estado quando houver mudança
         //atualiza estado quando houver mudança
         socket.on('acenderLuzSala', (novoEstado: EstadoLuz) => {
             setEstadoLuz(novoEstado);

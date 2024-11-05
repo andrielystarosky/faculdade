@@ -4,7 +4,6 @@ import './App.css';
 import Sala from './components/Sala';
 import Cozinha from './components/Cozinha';
 import Quarto from './components/Quarto';
-import Quarto from './components/Quarto';
 
 const App: React.FC = () => {
   

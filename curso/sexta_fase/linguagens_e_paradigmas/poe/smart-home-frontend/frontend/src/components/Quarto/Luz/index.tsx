@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import './style.css';
 
 const socket = io('http://localhost:4000');
-export default function Sala() {
+export default function Quarto() {
 
     interface EstadoLuz {
         luzOn: boolean,
@@ -16,18 +16,18 @@ export default function Sala() {
     //conectar ao backend e receber o estado inicial
     useEffect(() => {
         //atualiza estado quando houver mudança
-        socket.on('acenderLuzSala', (novoEstado: EstadoLuz) => {
+        socket.on('acenderLuzQuarto', (novoEstado: EstadoLuz) => {
             setEstadoLuz(novoEstado);
         });
 
         return () => {
-            socket.off('acenderLuzSala');
+            socket.off('acenderLuzQuarto');
         }
     }, []);
 
     //funcao para alterar o estado dos dispositivo
     const acenderLuz = () => {
-        socket.emit('acenderLuzSala');
+        socket.emit('acenderLuzQuarto');
     }
 
     return (

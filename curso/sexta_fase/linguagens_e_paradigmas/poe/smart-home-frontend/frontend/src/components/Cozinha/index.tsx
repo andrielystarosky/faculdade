@@ -1,56 +1,27 @@
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+/**
+ * Importação de estilos e componentes específicos da cozinha
+ */
 import './style.css';
+import Luz from "./Luz";
+import Geladeira from "./Geladeira";
+import Fogao from "./Fogao";
 
+/**
+ * Componente Cozinha
+ * 
+ * Este componente representa o ambiente da cozinha, exibindo um título e agrupando
+ * os controles de dispositivos específicos do ambiente, incluindo luz, geladeira e fogão.
+ * 
+ * @returns JSX.Element - Retorna a estrutura JSX da cozinha, com título e dispositivos.
+ */
 export default function Cozinha() {
-    const socket = io('http://localhost:4000');
-
-    interface EstadoInicial {
-        luzOn: boolean,
-    }
-
-    interface EstadoLuz {
-        luzOn: boolean,
-    }
-
-    const [estadoInicial, setEstadoInicial] = useState<EstadoInicial>({
-        luzOn: false
-    });
-
-    const [estadoLuz, setEstadoLuz] = useState<EstadoLuz>({
-        luzOn: false
-    });
-
-    //conectar ao backend e receber o estado inicial
-    useEffect(() => {
-        socket.on('estadoInicialSala', (estadoInicial: EstadoInicial) => {
-            setEstadoInicial(estadoInicial);
-        });
-        //atualiza estado quando houver mudança
-        socket.on('acenderLuzCozinha', (novoEstado: EstadoLuz) => {
-            setEstadoLuz(novoEstado);
-        });
-
-        return () => {
-            socket.off('estadoInicialCozinha');
-            socket.off('acenderLuzCozinha');
-        }
-    }, []);
-
-    //funcao para alterar o estado dos dispositivo
-    const acenderLuz = () => {
-        socket.emit('acenderLuzCozinha');
-    }
-
-
     return (
         <div className='cozinha'>
-            <div className='luz'>
-                <p>Sala de Estar - Luz</p>
-                <button onClick={acenderLuz}>
-                    {estadoLuz.luzOn ? 'Desligar Luz' : 'Ligar Luz'}
-                </button>
-                <img src='luz.png' className={`status ${estadoLuz.luzOn ? 'on' : 'off'}`} />
+            <h2>Cozinha</h2>
+            <div className='comodo'>
+                <Luz/>
+                <Geladeira/>
+                <Fogao/>
             </div>
         </div>
     )
